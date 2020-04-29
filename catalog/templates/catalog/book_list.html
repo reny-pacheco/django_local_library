@@ -1,0 +1,49 @@
+
+{% extends "base_generic.html" %}
+{% block content %}
+  <h3>Book List</h3>
+  {% if book_list %}
+      <div>
+      <table class="table mt-4 ">
+        <tbody class="border-bottom">
+          {% for book in book_list %}
+            <tr>
+              <td>
+                <li class="m-2">
+                <a href="{{ book.get_absolute_url }}"</a>{{ book.title }} <small>({{book.author}})</small>
+                <div class="col-md-4">
+                </div>
+              </li>
+              </td>
+               {% if user.is_authenticated %}
+                  {% if perms.catalog.can_mark_returned %}
+                    <td><a href="{% url 'book-update' book.id %}" class="btn btn-sm btn-success mt-1">Update</a></td>
+                    <td><a href="{% url 'book-delete' book.id %}" class="btn btn-sm btn-danger mt-1">Delete</a></td>
+                  {% endif %}
+                {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}       
+{% endblock %}
+
+{% for copy in book.bookinstance_set.all %}
+      <hr>
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ copy.get_status_display }}
+      </p>
+      {% if copy.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+      {% endif %}
+      <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
+      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+    {% endfor %}
+
+
+
+
+    <td><a href="{% url 'renew-book-librarian' copy.id %}" class="btn btn-sm btn-success mt-1">Renew</a></td>

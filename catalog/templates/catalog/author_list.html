@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h3>Author List</h3>
+  {% if author_list %}
+    <div>
+      <table class="table mt-4 ">
+        <tbody class="border-bottom">
+          {% for author in author_list %}
+            <tr>
+              <td>
+                <li class="m-2">
+                <a href="{{ author.get_absolute_url }}"</a>{{ author.first_name }} {{ author.last_name }} <small>({{author.date_of_birth}} - {% if author.date_of_death == None %} Present 
+                      {% else %} {{author.date_of_death}} 
+                      {% endif %})</small>
+                <div class="col-md-4">
+                </div>
+              </li>
+              </td>
+              {% if user.is_authenticated %}
+                {% if perms.catalog.can_mark_returned %}
+                  <td><a href="{% url 'author_update' author.pk%}" class="btn btn-sm btn-success mt-1">Update</a></td>
+                  <td><a href="{% url 'author_delete' author.pk%}" class="btn btn-sm btn-danger mt-1">Delete</a></td>
+                {% endif %}
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>There are no authors in the library.</p>
+  {% endif %}       
+{% endblock %}

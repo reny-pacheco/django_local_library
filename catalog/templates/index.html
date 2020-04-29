@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Local Library Home</h2>
+  <p>Welcome to LocalLibrary, a website where you can find awesome and famous books</p>
+  <h3>Dynamic content</h3>
+  <p>The library has the following record counts:</p>
+  <ul class = "list-unstyled ml-4">
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+  <h4>No. of Genres {{ num_genre }}</h4>
+  <ul class = "list-unstyled  ml-4 text-muted">
+    <li><strong>Horror: {{ book_genre_horror }}</strong></li>
+    <li><strong>Drama: {{ book_genre_drama }}</strong></li>
+    <li><strong>Comedy: {{ book_genre_comedy }}</strong></li>
+    <li><strong>Action: {{ book_genre_action }}</strong></li>
+    <li><strong>Lifestyle: {{ book_genre_lifestyle }}</strong></li>
+    <li><strong>Science Fiction: {{ book_genre_scifi }}</strong></li>
+  </ul>
+{% endblock %}
+
+
+{% block title %}
+  <title>Local Library in Django</title>
+{% endblock %}

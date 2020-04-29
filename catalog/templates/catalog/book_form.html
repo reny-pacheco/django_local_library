@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h3 class="mb-4">Add Book</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <button class="btn btn-primary btn-sm px-3 mt-3" type="submit">Submit</button>
+    <a href="{% url 'books' %}" class="btn btn-danger btn-sm btn-sm px-3 mt-3 ml-4">Cancel</a>
+  </form>
+{% endblock %}

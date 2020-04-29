@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h3>{{ author.first_name }} {{ author.last_name }}</h3>
+  <p class="text-muted">{{author.date_of_birth}} - {% if author.date_of_death == None %} Present 
+  {% else %} {{author.date_of_death}} 
+   {% endif %}</p>
+
+   <div class="col-md-12">
+     <h5 class="text-muted mb-4">Books</h5>
+    
+    {% for book in author.book_set.all %}
+      <div>
+        <p class="ml-3"><strong><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></strong></p>
+        <p class="text-muted ml-4">{{ book.summary }}</p>
+        <hr>
+      </div>
+    {% endfor %}
+
+   </div>
+  
+{% endblock %}
